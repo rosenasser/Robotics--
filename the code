@@ -1,0 +1,60 @@
+/* at the first 15 second the three boxes with different 
+sizes will be placed infront of the photoresistors , 
+first the buzzer will make a sound wich mean we should put the
+first box infront of the photoresistors to take its vslus,
+after 5 second, the buzzer will make a sound again to alart the 
+user to put the second box toput the third box to take it values
+to take the valuse of the photoresistor, finaly after 5 second
+the user will the user will put the third box.
+after taking all the valuse of the photoresistors the loop will
+start to classify each box*/
+#include <Servo.h> 
+int x1,x2,x3;// the valuse of the photoresistor reading of the first box
+int y1,y2,y3;// the valuse of the photoresistor reading of the second box
+int z1,z2,z3;// the valuse of the photoresistor reading of the third box
+void setup()
+{
+  Serial.begin(9600);           
+  pinMode(11,OUTPUT);
+  tone(11,300,500);
+  while(millis()<5000){
+  x1= analogRead(A3); 
+  x2= analogRead(A4); 
+  x3= analogRead(A5); 
+  }
+   tone(11,300,500);
+  while(millis()<10000){
+  y1= analogRead(A3); 
+  y2= analogRead(A4); 
+  y3= analogRead(A5); 
+  }
+   tone(11,300,500);
+  while(millis()<15000){
+  z1= analogRead(A3); 
+  z2= analogRead(A4); 
+  z3= analogRead(A5); 
+  }
+}
+
+void loop()
+{
+  Servo moto1;
+  moto1.attach(10);
+ int r1= analogRead(A3); 
+ int r2= analogRead(A4); 
+ int r3= analogRead(A5); 
+  if ( r1==x1 &&  r2==x2 && r3==x3){
+  moto1.write(15);
+    delay(5000);
+  } 
+  else if ( r1==y1 &&  r2==y2 && r3==y3){
+    moto1.write(85);
+    delay(5000);
+  }
+  else if ( r1==z1 &&  r2==z2 && r3==z3){
+  moto1.write(155);
+    delay(5000);
+  }     
+  
+  
+}
